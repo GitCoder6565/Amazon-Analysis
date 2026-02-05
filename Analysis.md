@@ -1,231 +1,153 @@
-1️⃣ DESCRIPTIVE ANALYSIS (What happened?)
+# 📊 E-Commerce Business Analytics Framework
 
-Purpose: Understand business performance
-Industry usage: Monthly business review, executive dashboards
+This repository contains a comprehensive end-to-end analytical framework designed to transform raw transactional data into actionable business intelligence. The project covers 12 critical dimensions of analysis used by industry-leading data teams.
 
-Examples
+---
 
-Total revenue, orders, customers
+## 🔍 1. Descriptive Analysis
 
-Category-wise sales
+*What happened?*
+Focuses on historical data to summarize business performance for executive reviews.
 
-Country / state performance
+* **Key Metrics:** Total revenue, order volume, and unique customer count.
+* **Dimensions:** Sales by category, geographic performance (Country/State), and payment method distribution.
+* **Operational Health:** Breakdown of "Delivered" vs. "Returned" statuses.
 
-Payment method usage
+---
 
-Order status breakdown
+## 🧪 2. Diagnostic Analysis
 
-📌 Key questions answered:
+*Why did it happen?*
+Deep-dives into specific drivers to identify operational bottlenecks or successes.
 
-Which category sells the most?
-
-Where is most revenue coming from?
-
-How many orders are delivered vs returned?
-
-2️⃣ DIAGNOSTIC ANALYSIS (Why did it happen?)
-
-Purpose: Identify drivers and issues
-Industry usage: Operations & strategy teams
-
-Examples
-
-Why are returns higher in some categories?
-
-Why does revenue vary by region?
-
-Does discount increase sales volume?
-
-📌 Analyses
-
-Discount vs quantity correlation
-
-Return rate by category / brand
-
-Shipping cost impact by region
+* **Correlation Studies:** Analyzing the relationship between **Discount %** and **Sales Volume**.
+* **Root Cause Analysis:** Investigating high return rates in specific categories or shipping cost impacts by region.
+* **Implementation Example:**
 
 ```python
+# Calculating Return Rate by Category
 return_rate = (
-    df[df['OrderStatus']=='Returned']
-    .groupby('Category')['OrderID']
-    .count()
-    /
+    df[df['OrderStatus']=='Returned'].groupby('Category')['OrderID'].count() /
     df.groupby('Category')['OrderID'].count()
 ).fillna(0)
+
 ```
 
-3️⃣ TIME-SERIES ANALYSIS (When does it happen?)
+---
 
-Purpose: Trend & seasonality detection
-Industry usage: Forecasting, inventory planning
+## 📈 3. Time-Series Analysis
 
-Examples
+*When does it happen?*
+Detecting seasonality and trends to inform inventory and staffing.
 
-Monthly / weekly sales trends
+* **Trends:** Monthly/Weekly sales growth.
+* **Seasonality:** Identifying high-revenue months (e.g., Q4 holiday peaks).
+* **Cycle Analysis:** Comparing weekend vs. weekday consumer behavior.
 
-Seasonal demand by category
+---
 
-Weekend vs weekday sales
+## 👥 4. Customer Analysis (RFM)
 
-📌 Questions answered:
+*Who is buying?*
+Segmentation strategies for targeted CRM and marketing.
 
-When should inventory be stocked?
+* **RFM Analysis (Industry Standard):**
+| Metric | Meaning | Business Value |
+| :--- | :--- | :--- |
+| **Recency** | Days since last purchase | Identifying churn risk |
+| **Frequency** | Total number of orders | Measuring loyalty |
+| **Monetary** | Total spend amount | Identifying VIP customers |
 
-Which months are high-revenue months?
+---
 
-4️⃣ CUSTOMER ANALYSIS (Who is buying?)
+## 📦 5. Product & Category Analysis
 
-Purpose: Customer segmentation & retention
-Industry usage: CRM, marketing campaigns
+*What sells?*
+Optimizing the product catalog and pricing tiers.
 
-Analyses
+* **Performance Ranking:** Identifying "Hero" products vs. "Laggards" (to be discontinued).
+* **Contribution:** Which categories drive the highest profit margins?
+* **Sensitivity:** Analyzing how specific brands react to price changes.
 
-Repeat vs one-time customers
+---
 
-High-value customers
+## 💸 6. Price & Discount Analysis
 
-Geographic customer concentration
+*How price affects sales?*
+High-value analysis for revenue management and margin protection.
 
-RFM Analysis (VERY IMPORTANT)
-Metric	Meaning
-Recency	How recently customer bought
-Frequency	How often they buy
-Monetary	How much they spend
+* **Price Elasticity:** Quantifying how demand shifts when prices change.
+* **Discount Efficiency:** Identifying "Profit Leaks" due to over-discounting.
+* **Regression:** Modeling the impact of Unit Price on Quantity sold.
 
-This is industry-standard.
+---
 
-5️⃣ PRODUCT & CATEGORY ANALYSIS (What sells?)
+## 💰 7. Profitability Analysis
 
-Purpose: Product optimization
-Industry usage: Catalog & pricing teams
+*What is actually profitable?*
+Shifting focus from "Top-line" (Sales) to "Bottom-line" (Profit).
 
-Examples
+* **Net Revenue:** Calculating profit after Shipping, Taxes, and Discounts.
+* **Efficiency:** Finding high-volume products that suffer from low margins.
+* **Geographic Profit:** Identifying regions where shipping costs eat the entire margin.
 
-Top / bottom products
+---
 
-Brand performance
+## 📉 8. Regression Analysis
 
-Category profit contribution
+*What drives revenue?*
+Using statistical modeling to prove analytical maturity.
 
-Discount sensitivity per product
+* **Target Variables:** Revenue, Profit, Quantity.
+* **Predictors:** Unit Price, Discount level, Tax, and Shipping Cost.
+* **Goal:** Quantify the exact impact of a 1% increase in discount on total volume.
 
-📌 Questions:
+---
 
-Which products should be promoted?
+## 🌍 9. Geographical Analysis
 
-Which products should be discontinued?
+*Where to invest?*
+Market expansion and regional resource allocation.
 
-6️⃣ PRICE & DISCOUNT ANALYSIS (How price affects sales)
+* **Market Share:** Revenue distribution across countries and states.
+* **Hotspots:** Identifying high-demand cities for potential warehouse expansion.
 
-Purpose: Pricing strategy
-Industry usage: Revenue management
+---
 
-Analyses
+## ⚙️ 10. Operational Analysis
 
-Discount vs revenue regression
+*Process efficiency*
+Identifying friction in the supply chain and fulfillment process.
 
-Price elasticity by category
+* **Lead Times:** Analyzing delays in order fulfillment.
+* **Failure Rates:** Investigating payment method failures and cancellation reasons.
 
-Profit loss due to over-discounting
+---
 
-📌 This is high-value analysis in interviews.
+## 🔮 11. Predictive Analysis
 
-7️⃣ PROFITABILITY ANALYSIS (What is actually profitable?)
+*What will happen next?*
+Leveraging Machine Learning for proactive decision-making.
 
-Purpose: Cost control & margin optimization
-Industry usage: Finance & operations
+* **Forecasting:** Predicting next month's sales using ARIMA or Prophet.
+* **Churn Prediction:** Identifying customers likely to stop buying.
+* **CLV:** Predicting the future Lifetime Value of a new customer.
 
-Analyses
+---
 
-Profit by category / country
+## 🖥️ 12. Executive Dashboarding
 
-Shipping cost vs profit
+*Final Delivery*
+Consolidating all insights into a single source of truth for leadership.
 
-Tax impact on net revenue
+* **KPI Overview:** Real-time revenue and margin tracking.
+* **Visual Storytelling:** Moving from high-level trends to granular profit drivers.
+* **Actionable Insights:** Directing stakeholders toward specific "Next Steps."
 
-Low-margin high-volume products
+---
 
-📌 Executives care about profit, not sales.
+### How to use this repository
 
-8️⃣ REGRESSION ANALYSIS (What drives revenue?)
-
-Purpose: Quantify impact of variables
-Industry usage: Data science & strategy teams
-
-Regression Targets
-
-Revenue
-
-Profit
-
-Quantity sold
-
-Predictors
-
-UnitPrice
-
-Discount
-
-Quantity
-
-ShippingCost
-
-Tax
-
-📌 This proves analytical maturity.
-
-9️⃣ GEOGRAPHICAL ANALYSIS (Where to invest?)
-
-Purpose: Market expansion
-Industry usage: Regional growth teams
-
-Examples
-
-Country vs revenue share
-
-State-wise performance
-
-City-level demand hotspots
-
-🔟 OPERATIONAL ANALYSIS (Process efficiency)
-
-Purpose: Improve delivery & fulfillment
-Industry usage: Supply chain teams
-
-Analyses
-
-Order status delays
-
-Cancellation & return reasons
-
-Payment method failures
-
-1️⃣1️⃣ PREDICTIVE ANALYSIS (Next-level)
-
-Purpose: Forecast future outcomes
-Industry usage: Planning & AI teams
-
-Examples
-
-Sales forecasting (next month)
-
-Customer churn prediction
-
-High-value customer prediction
-
-1️⃣2️⃣ EXECUTIVE DASHBOARDING (Final Output)
-
-Purpose: Decision-making
-Industry usage: Leadership dashboards
-
-Dashboard Sections
-
-KPIs
-
-Trends
-
-Category & region insights
-
-Profit drivers
-
-Regression insights
+1. **Data Cleaning:** See `notebooks/01_cleaning.ipynb`
+2. **Exploratory Analysis:** See `notebooks/02_eda.ipynb`
+3. **Modeling:** See `notebooks/03_regression_modeling.ipynb`
